@@ -56,8 +56,8 @@ it('integration : module-errors', async() => {
     '',
     'These relative modules were not found:',
     '',
-    '* ./non-existing in ./test/fixtures/module-errors/index.js',
     '* ../non-existing in ./test/fixtures/module-errors/index.js',
+    '* ./non-existing in ./test/fixtures/module-errors/index.js',
   ]);
 });
 

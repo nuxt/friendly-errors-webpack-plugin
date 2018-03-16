@@ -9,6 +9,18 @@ const FriendlyErrorsPlugin = require("../../../index");
 
 const notifierPlugin = new FriendlyErrorsPlugin();
 const mockCompiler = new EventEmitter();
+mockCompiler.hooks = {
+  done: {
+    tap(name, handler) {
+      mockCompiler.plugin('done', handler)
+    }
+  },
+  invalid: {
+    tap(name, handler) {
+      mockCompiler.plugin('invalid', handler)
+    }
+  }
+}
 notifierPlugin.apply(mockCompiler);
 
 it('friendlyErrors : capture invalid message', () => {
@@ -49,7 +61,8 @@ it('friendlyErrors : clearConsole option', () => {
 function successfulCompilationStats() {
   const compilation = {
     errors: [],
-    warnings: []
+    warnings: [],
+    children: []
   };
   const stats = new Stats(compilation);
   stats.startTime = 0;
