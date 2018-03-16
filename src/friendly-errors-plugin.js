@@ -14,13 +14,13 @@ const uniqueBy = utils.uniqueBy;
 const defaultTransformers = [
   require('./transformers/babelSyntax'),
   require('./transformers/moduleNotFound'),
-  require('./transformers/esLintError'),
+  require('./transformers/esLintError')
 ];
 
 const defaultFormatters = [
   require('./formatters/moduleNotFound'),
   require('./formatters/eslintError'),
-  require('./formatters/defaultError'),
+  require('./formatters/defaultError')
 ];
 
 class FriendlyErrorsWebpackPlugin {

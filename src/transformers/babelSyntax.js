@@ -28,7 +28,7 @@ function transform(error) {
     return Object.assign({}, error, {
       message: cleanStackTrace(cleanMessage(error.message) + '\n'),
       severity: 1000,
-      name: 'Syntax Error',
+      name: 'Syntax Error'
     });
   }
 

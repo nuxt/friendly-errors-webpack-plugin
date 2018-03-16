@@ -9,7 +9,7 @@ function transform(error) {
   if (isEslintError(error)) {
     return Object.assign({}, error, {
       name: 'Lint error',
-      type: 'lint-error',
+      type: 'lint-error'
     });
   }
 
