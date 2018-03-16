@@ -155,8 +155,3 @@ You can add transformers and formatters. Please see [transformErrors](https://gi
 and [formatErrors](https://github.com/nuxt/friendly-errors-webpack-plugin/blob/master/src/core/formatErrors.js)
 in the source code and take a look a the [default transformers](https://github.com/nuxt/friendly-errors-webpack-plugin/tree/master/src/transformers)
 and the [default formatters](https://github.com/nuxt/friendly-errors-webpack-plugin/tree/master/src/formatters).
-
-## TODO
-
-- [x] Make it compatible with node 4
-
