@@ -1,6 +1,6 @@
 # Friendly-errors-webpack-plugin
 
-[![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/@nuxtjs/friendly-errors-webpack-plugin)
+[![npm](https://img.shields.io/npm/v/@nuxtjs/friendly-errors-webpack-plugin.svg)](https://www.npmjs.com/package/@nuxtjs/friendly-errors-webpack-plugin)
 [![Build Status](https://travis-ci.org/nuxt/friendly-errors-webpack-plugin.svg?branch=master)](https://travis-ci.org/nuxt/friendly-errors-webpack-plugin)
 [![Build status](https://ci.appveyor.com/api/projects/status/hqi9g8u2e17epr2d?svg=true)](https://ci.appveyor.com/project/nuxt/friendly-errors-webpack-plugin/branch/master)
 
