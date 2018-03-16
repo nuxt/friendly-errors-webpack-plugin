@@ -42,13 +42,14 @@
     "expect": "^1.20.2",
     "jest": "^22.4.2",
     "memory-fs": "^0.4.1",
-    "strip-ansi": "^4.0.0",
+    "standard-version": "^4.3.0",
     "webpack": "^4.1.1"
   },
   "dependencies": {
     "chalk": "^2.3.2",
     "error-stack-parser": "^2.0.0",
-    "string-width": "^2.0.0"
+    "string-width": "^2.0.0",
+    "strip-ansi": "^4.0.0"
   },
   "jest": {
     "testEnvironment": "node"
