@@ -16,12 +16,12 @@ it('formats the error based on the matching formatters', () => {
   const errors = [
     { message: 'Error 1', type: undefined },
     { message: 'Error 2', type: 'other' },
-    { message: 'Error 3', type: 'not-found' },
+    { message: 'Error 3', type: 'not-found' }
   ];
 
   expect(formatErrors(errors, [simple, allCaps, notFound], 'Error')).toEqual([
     'Error 1',
     'ERROR 2',
-    'Not found',
+    'Not found'
   ]);
 });

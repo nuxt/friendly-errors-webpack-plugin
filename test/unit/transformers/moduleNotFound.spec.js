@@ -5,8 +5,8 @@ const error = {
   name: 'ModuleNotFoundError',
   message: 'Module not found : redux',
   webpackError: {
-    dependencies: [{ request: 'redux' } ],
-  },
+    dependencies: [{ request: 'redux' } ]
+  }
 };
 
 it('Sets severity to 900', () => {
@@ -27,7 +27,7 @@ it('Sets the appropiate message', () => {
   expect(moduleNotFound({
     name: 'ModuleNotFoundError',
     message: 'Module not found',
-    webpackError: error.webpackError,
+    webpackError: error.webpackError
   }).type).toEqual('module-not-found');
 });
 

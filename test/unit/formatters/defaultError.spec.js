@@ -10,7 +10,7 @@ it('Formats errors with no type', () => {
     ' Warning  in ./src/index.js',
     '',
     'Error message',
-    '',
+    ''
   ]);
 });
 

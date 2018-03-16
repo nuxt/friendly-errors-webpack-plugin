@@ -57,7 +57,7 @@ it('integration : module-errors', async() => {
     'These relative modules were not found:',
     '',
     '* ../non-existing in ./test/fixtures/module-errors/index.js',
-    '* ./non-existing in ./test/fixtures/module-errors/index.js',
+    '* ./non-existing in ./test/fixtures/module-errors/index.js'
   ]);
 });
 
@@ -137,6 +137,6 @@ it('integration : webpack multi compiler : module-errors', async() => {
     '',
     'This relative module was not found:',
     '',
-    '* ./non-existing in ./test/fixtures/multi-compiler-module-errors/index.js',
+    '* ./non-existing in ./test/fixtures/multi-compiler-module-errors/index.js'
   ]);
 });
