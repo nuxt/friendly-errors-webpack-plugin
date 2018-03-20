@@ -107,6 +107,12 @@ new FriendlyErrorsPlugin({
   // default is true
   clearConsole: true,
 
+  // INFO:    all logs
+  // WARNING: warnings and errors
+  // ERROR:   only errors
+  // SILENT:  no log
+  logLevel: true,
+
   // add formatters and transformers (see below)
   additionalFormatters: [],
   additionalTransformers: []

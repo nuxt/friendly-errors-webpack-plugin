@@ -23,6 +23,13 @@ const defaultFormatters = [
   require('./formatters/defaultError')
 ];
 
+const logLevels = {
+  'INFO': 0,
+  'WARNING': 1,
+  'ERROR': 2,
+  'SILENT': 3
+}
+
 class FriendlyErrorsWebpackPlugin {
 
   constructor(options) {
@@ -30,6 +37,7 @@ class FriendlyErrorsWebpackPlugin {
     this.compilationSuccessInfo = options.compilationSuccessInfo || {};
     this.onErrors = options.onErrors;
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole);
+    this.logLevel = logLevels[options.logLevel] || '0'
     this.formatters = concat(defaultFormatters, options.additionalFormatters);
     this.transformers = concat(defaultTransformers, options.additionalTransformers);
   }
@@ -42,24 +50,26 @@ class FriendlyErrorsWebpackPlugin {
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
-      if (!hasErrors && !hasWarnings) {
+      if (!hasErrors && !hasWarnings && this.logLevel < 1) {
         this.displaySuccess(stats);
         return;
       }
 
-      if (hasErrors) {
-        this.displayErrors(extractErrorsFromStats(stats, 'errors'), 'error');
-        return;
+      if (hasWarnings && this.logLevel < 2) {
+        this.displayErrors(extractErrorsFromStats(stats, 'warnings'), 'warning');
       }
 
-      if (hasWarnings) {
-        this.displayErrors(extractErrorsFromStats(stats, 'warnings'), 'warning');
+      if (hasErrors && this.logLevel < 3) {
+        this.displayErrors(extractErrorsFromStats(stats, 'errors'), 'error');
+        return;
       }
     });
 
     compiler.hooks.invalid.tap('FriendlyErrorsWebpackPlugin', () => {
       this.clearConsole();
-      output.title('info', 'WAIT', 'Compiling...');
+      if (this.logLevel < 1) {
+        output.title('info', 'WAIT', 'Compiling...');
+      }
     });
   }
 
