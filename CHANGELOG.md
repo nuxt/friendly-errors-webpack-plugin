@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v2.0.0...v2.0.1) (2018-03-20)
+
+
+### Bug Fixes
+
+* npm badge ([9bb4d3a](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/9bb4d3a))
+
+
+### Features
+
+* add log level ([ddcf45a](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/ddcf45a))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v1.6.1...v2.0.0) (2018-03-16)
 
