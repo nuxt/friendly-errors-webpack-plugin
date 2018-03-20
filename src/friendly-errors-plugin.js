@@ -45,29 +45,33 @@ class FriendlyErrorsWebpackPlugin {
   apply(compiler) {
 
     compiler.hooks.done.tap('FriendlyErrorsWebpackPlugin', stats => {
-      this.clearConsole();
 
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
 
+      let cleared = false
+
       if (!hasErrors && !hasWarnings && this.logLevel < 1) {
+        cleared = this.clearConsole();
         this.displaySuccess(stats);
         return;
       }
 
       if (hasWarnings && this.logLevel < 2) {
+        cleared = this.clearConsole();
         this.displayErrors(extractErrorsFromStats(stats, 'warnings'), 'warning');
       }
 
       if (hasErrors && this.logLevel < 3) {
+        cleared || this.clearConsole();
         this.displayErrors(extractErrorsFromStats(stats, 'errors'), 'error');
         return;
       }
     });
 
     compiler.hooks.invalid.tap('FriendlyErrorsWebpackPlugin', () => {
-      this.clearConsole();
       if (this.logLevel < 1) {
+        this.clearConsole();
         output.title('info', 'WAIT', 'Compiling...');
       }
     });
@@ -77,6 +81,7 @@ class FriendlyErrorsWebpackPlugin {
     if (this.shouldClearConsole) {
       output.clearConsole();
     }
+    return true
   }
 
   displaySuccess(stats) {
