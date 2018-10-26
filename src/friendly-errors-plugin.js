@@ -44,7 +44,8 @@ class FriendlyErrorsWebpackPlugin {
 
   apply(compiler) {
 
-    compiler.hooks.done.tap('FriendlyErrorsWebpackPlugin', stats => {
+    const doneFn = stats => {
+      this.clearConsole();
 
       const hasErrors = stats.hasErrors();
       const hasWarnings = stats.hasWarnings();
@@ -67,14 +68,22 @@ class FriendlyErrorsWebpackPlugin {
         this.displayErrors(extractErrorsFromStats(stats, 'errors'), 'error');
         return;
       }
-    });
+    };
 
-    compiler.hooks.invalid.tap('FriendlyErrorsWebpackPlugin', () => {
-      if (this.logLevel < 1) {
-        this.clearConsole();
-        output.title('info', 'WAIT', 'Compiling...');
-      }
-    });
+    const invalidFn = () => {
+      this.clearConsole();
+      output.title('info', 'WAIT', 'Compiling...');
+    };
+
+    if (compiler.hooks) {
+      const plugin = { name: 'FriendlyErrorsWebpackPlugin' };
+
+      compiler.hooks.done.tap(plugin, doneFn);
+      compiler.hooks.invalid.tap(plugin, invalidFn);
+    } else {
+      compiler.plugin('done', doneFn);
+      compiler.plugin('invalid', invalidFn);
+    }
   }
 
   clearConsole() {

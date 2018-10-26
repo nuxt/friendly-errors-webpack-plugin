@@ -7,7 +7,7 @@
   "description": "Recognizes certain classes of webpack errors and cleans, aggregates and prioritizes them to provide a better Developer Experience",
   "main": "index.js",
   "scripts": {
-    "test": "eslint --ignore-pattern \"test/**\" ./ && jest",
+    "test": "eslint --ignore-pattern test/* && jest",
     "release": "standard-version"
   },
   "files": [
@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "webpack": "^4.0.0"
+    "webpack": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
