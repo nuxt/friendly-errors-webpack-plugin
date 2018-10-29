@@ -52,8 +52,7 @@ class FriendlyErrorsWebpackPlugin {
 
       let cleared = false
 
-      if (!hasErrors && !hasWarnings && this.logLevel < 1) {
-        cleared = this.clearConsole();
+      if (!hasErrors && !hasWarnings) {
         this.displaySuccess(stats);
         return;
       }
