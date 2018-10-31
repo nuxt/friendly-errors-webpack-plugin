@@ -2,13 +2,15 @@ const expect = require('expect');
 const EventEmitter = require('events');
 const Stats = require('webpack/lib/Stats');
 const Module = require('webpack/lib/Module');
+const { captureLogs } = require('../../utils');
 EventEmitter.prototype.plugin = EventEmitter.prototype.on;
 
-const output = require("../../../src/output");
 const FriendlyErrorsPlugin = require("../../../index");
 
 const notifierPlugin = new FriendlyErrorsPlugin();
 const mockCompiler = new EventEmitter();
+const output = notifierPlugin.output;
+
 mockCompiler.hooks = {
   done: {
     tap(name, handler) {
@@ -23,25 +25,17 @@ mockCompiler.hooks = {
 }
 notifierPlugin.apply(mockCompiler);
 
-it('friendlyErrors : capture invalid message', () => {
-
-  const logs = output.captureLogs(() => {
-    mockCompiler.emit('invalid');
-  });
-
+it('friendlyErrors : capture invalid message', async () => {
+  const logs = await captureLogs(output, () => mockCompiler.emit('invalid'));
   expect(logs).toEqual([
     'WAIT  Compiling...',
     ''
     ]);
 });
 
-it('friendlyErrors : capture compilation without errors', () => {
-
+it('friendlyErrors : capture compilation without errors', async () => {
   const stats = successfulCompilationStats();
-  const logs = output.captureLogs(() => {
-    mockCompiler.emit('done', stats);
-  });
-
+  const logs = await captureLogs(output, () => mockCompiler.emit('done', stats));
   expect(logs).toEqual([
     'DONE  Compiled successfully in 100ms',
     ''

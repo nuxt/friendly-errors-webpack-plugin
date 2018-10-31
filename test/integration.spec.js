@@ -1,10 +1,10 @@
 "use strict";
 
-const output = require('../src/output');
 const webpack = require('webpack');
 const FriendlyErrorsWebpackPlugin = require('../src/friendly-errors-plugin');
 const MemoryFileSystem = require('memory-fs');
 const path = require('path');
+const { captureLogs } = require('./utils');
 
 const webpackPromise = function (config, globalPlugins) {
   const compiler = webpack(config);
@@ -23,14 +23,10 @@ const webpackPromise = function (config, globalPlugins) {
   });
 };
 
-async function executeAndGetLogs(fixture, globalPlugins) {
-  try {
-    output.capture();
-    await webpackPromise(require(fixture), globalPlugins);
-    return output.capturedMessages;
-  } finally {
-    output.endCapture()
-  }
+async function executeAndGetLogs(fixture, globalPlugins, output) {
+  const config = require(fixture)
+  output = (globalPlugins || config.plugins)[0].output
+  return captureLogs(output, () => webpackPromise(config, globalPlugins));
 }
 
 it('integration : success', async() => {
@@ -72,11 +68,15 @@ it('integration : should display eslint warnings', async() => {
   expect(logs.join('\n')).toEqual(
     `WARNING  Compiled with 2 warnings
 
+Module Warning (from ./node_modules/eslint-loader/index.js):
+
 ${filename('fixtures/eslint-warnings/index.js')}
   3:7  warning  'unused' is assigned a value but never used   no-unused-vars
   4:7  warning  'unused2' is assigned a value but never used  no-unused-vars
 
 ✖ 2 problems (0 errors, 2 warnings)
+
+Module Warning (from ./node_modules/eslint-loader/index.js):
 
 ${filename('fixtures/eslint-warnings/module.js')}
   1:7  warning  'unused' is assigned a value but never used  no-unused-vars

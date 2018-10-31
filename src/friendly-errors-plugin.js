@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const os = require('os');
 const transformErrors = require('./core/transformErrors');
 const formatErrors = require('./core/formatErrors');
-const output = require('./output');
+const Output = require('./output');
 const utils = require('./utils');
 
 const concat = utils.concat;
@@ -37,6 +37,7 @@ class FriendlyErrorsWebpackPlugin {
     this.compilationSuccessInfo = options.compilationSuccessInfo || {};
     this.onErrors = options.onErrors;
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole);
+    this.output = new Output();
     this.logLevel = logLevels[options.logLevel] || '0'
     this.formatters = concat(defaultFormatters, options.additionalFormatters);
     this.transformers = concat(defaultTransformers, options.additionalTransformers);
@@ -72,7 +73,7 @@ class FriendlyErrorsWebpackPlugin {
 
     const invalidFn = () => {
       this.clearConsole();
-      output.title('info', 'WAIT', 'Compiling...');
+      this.output.title('info', 'WAIT', 'Compiling...');
     };
 
     if (compiler.hooks) {
@@ -88,21 +89,21 @@ class FriendlyErrorsWebpackPlugin {
 
   clearConsole() {
     if (this.shouldClearConsole) {
-      output.clearConsole();
+      this.output.clearConsole();
     }
     return true
   }
 
   displaySuccess(stats) {
     const time = getCompileTime(stats);
-    output.title('success', 'DONE', 'Compiled successfully in ' + time + 'ms');
+    this.output.title('success', 'DONE', 'Compiled successfully in ' + time + 'ms');
 
     if (this.compilationSuccessInfo.messages) {
-      this.compilationSuccessInfo.messages.forEach(message => output.info(message));
+      this.compilationSuccessInfo.messages.forEach(message => this.output.info(message));
     }
     if (this.compilationSuccessInfo.notes) {
-      output.log();
-      this.compilationSuccessInfo.notes.forEach(note => output.note(note));
+      this.output.log();
+      this.compilationSuccessInfo.notes.forEach(note => this.output.note(note));
     }
   }
 
@@ -115,14 +116,14 @@ class FriendlyErrorsWebpackPlugin {
     const subtitle = severity === 'error' ?
       `Failed to compile with ${nbErrors} ${severity}s` :
       `Compiled with ${nbErrors} ${severity}s`;
-    output.title(severity, severity.toUpperCase(), subtitle);
+    this.output.title(severity, severity.toUpperCase(), subtitle);
 
     if (this.onErrors) {
       this.onErrors(severity, topErrors);
     }
 
     formatErrors(topErrors, this.formatters, severity)
-      .forEach(chunk => output.log(chunk));
+      .forEach(chunk => this.output.log(chunk));
   }
 }
 
