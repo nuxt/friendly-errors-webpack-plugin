@@ -15,7 +15,7 @@ function cleanMessage(message) {
   // this should match
   // linux => "(SyntaxError: )Unexpected token (5:11)"
   // windows => "(SyntaxError: C:/projects/index.js: )Unexpected token (5:11)"
-    .replace(/^Module build failed.*:\s/, 'Syntax Error: ');
+    .replace(/^Module build failed.*:(\sSyntaxError:)?\s/, 'Syntax Error: ');
 }
 
 function isBabelSyntaxError(e) {
