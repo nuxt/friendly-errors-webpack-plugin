@@ -2,7 +2,6 @@
 
 const transformErrors = require('./core/transformErrors')
 const formatErrors = require('./core/formatErrors')
-const BaseReporter = require('./reporters/base')
 const utils = require('./utils')
 
 const concat = utils.concat
@@ -30,13 +29,18 @@ const logLevels = {
 class FriendlyErrorsWebpackPlugin {
   constructor (options) {
     options = options || {}
-    this.reporter = new (options.reporter || BaseReporter)()
     this.compilationSuccessInfo = options.compilationSuccessInfo || {}
     this.onErrors = options.onErrors
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole)
     this.logLevel = logLevels[options.logLevel] || '0'
     this.formatters = concat(defaultFormatters, options.additionalFormatters)
     this.transformers = concat(defaultTransformers, options.additionalTransformers)
+
+    let reporter = options.reporter || './reporters/base'
+    if (typeof reporter === 'string') {
+      reporter = new (require(reporter))()
+    }
+    this.reporter = reporter
   }
 
   apply (compiler) {
@@ -67,7 +71,7 @@ class FriendlyErrorsWebpackPlugin {
 
     const invalidFn = () => {
       this.clearConsole()
-      this.reporter.title('info', 'WAIT', 'Compiling...')
+      this.reporter.info('WAIT', 'Compiling...')
     }
 
     if (compiler.hooks) {
@@ -90,7 +94,7 @@ class FriendlyErrorsWebpackPlugin {
 
   displaySuccess (stats) {
     const time = getCompileTime(stats)
-    this.reporter.title('success', 'DONE', 'Compiled successfully in ' + time + 'ms')
+    this.reporter.success('DONE', 'Compiled successfully in ' + time + 'ms')
 
     if (this.compilationSuccessInfo.messages) {
       this.compilationSuccessInfo.messages.forEach(message => this.reporter.info(message))
@@ -110,7 +114,7 @@ class FriendlyErrorsWebpackPlugin {
     const subtitle = severity === 'error'
       ? `Failed to compile with ${nbErrors} ${severity}s`
       : `Compiled with ${nbErrors} ${severity}s`
-    this.reporter.title(severity, severity.toUpperCase(), subtitle)
+    this.reporter[severity](severity.toUpperCase(), subtitle)
 
     if (this.onErrors) {
       this.onErrors(severity, topErrors)

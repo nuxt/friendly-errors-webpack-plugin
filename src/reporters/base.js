@@ -1,6 +1,6 @@
 'use strict'
 
-const colors = require('../utils/colors')
+const { colors, titles, formatTitle, formatText } = require('../utils/log')
 const chalk = require('chalk')
 const stringWidth = require('string-width')
 const readline = require('readline')
@@ -8,6 +8,7 @@ const readline = require('readline')
 class BaseReporter {
   constructor () {
     this.enabled = true
+    this.initLevels()
   }
 
   enable () {
@@ -20,44 +21,35 @@ class BaseReporter {
     }
   }
 
-  info (message) {
-    if (this.enabled) {
-      const titleFormatted = colors.formatTitle('info', 'I')
-      this.log(titleFormatted, message)
+  initLevels () {
+    for (const level of Object.keys(colors)) {
+      this[level] = (title, message) => {
+        if (this.enabled) {
+          if (!message) {
+            message = title
+            title = titles[level]
+          }
+          const titleFormatted = formatTitle(level, title)
+          let messageFormatted = formatText(level, message)
+          if (process.env.NODE_ENV !== 'test') {
+            messageFormatted = this.appendTimestamp(titleFormatted, messageFormatted)
+          }
+          this.log(titleFormatted, messageFormatted)
+          this.log()
+        }
+      }
     }
   }
 
-  note (message) {
-    if (this.enabled) {
-      const titleFormatted = colors.formatTitle('note', 'N')
-      this.log(titleFormatted, message)
+  appendTimestamp (title, message) {
+    // Make timestamp appear at the end of the line
+    const line = `${title} ${message}`
+    const dateString = chalk.grey(new Date().toLocaleTimeString())
+    let logSpace = process.stdout.columns - stringWidth(line) - stringWidth(dateString)
+    if (logSpace <= 0) {
+      logSpace = 10
     }
-  }
-
-  title (severity, title, subtitle) {
-    if (this.enabled) {
-      const date = new Date()
-      const dateString = chalk.grey(date.toLocaleTimeString())
-      const titleFormatted = colors.formatTitle(severity, title)
-      const subTitleFormatted = colors.formatText(severity, subtitle)
-      const message = `${titleFormatted} ${subTitleFormatted}`
-
-      // In test environment we don't include timestamp
-      if (process.env.NODE_ENV === 'test') {
-        this.log(message)
-        this.log()
-        return
-      }
-
-      // Make timestamp appear at the end of the line
-      let logSpace = process.stdout.columns - stringWidth(message) - stringWidth(dateString)
-      if (logSpace <= 0) {
-        logSpace = 10
-      }
-
-      this.log(`${message}${' '.repeat(logSpace)}${dateString}`)
-      this.log()
-    }
+    return `${message}${' '.repeat(logSpace)}${dateString}`
   }
 
   clearConsole () {

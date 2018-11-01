@@ -1,7 +1,7 @@
 'use strict'
 
 const concat = require('../utils').concat
-const formatTitle = require('../utils/colors').formatTitle
+const { formatTitle } = require('../utils/log')
 
 function displayError (severity, error) {
   const baseError = formatTitle(severity, severity)
