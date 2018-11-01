@@ -6,8 +6,5 @@
   "license": "MIT",
   "scripts": {
     "start": "node watch.js"
-  },
-  "dependencies": {
-    "friendly-errors-webpack-plugin": "^1.7.0"
   }
 }

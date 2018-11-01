@@ -1,5 +1,5 @@
 const FriendlyErrorsWebpackPlugin = require('../index');
-// const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+
 module.exports = {
   entry: __dirname + "/index.js",
   output: {
