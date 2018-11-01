@@ -1,6 +1,6 @@
 'use strict'
 
-const { colors, titles, formatTitle, formatText } = require('../utils/log')
+const { colors, formatTitle, formatText } = require('../utils/log')
 const chalk = require('chalk')
 const stringWidth = require('string-width')
 const readline = require('readline')
@@ -25,16 +25,18 @@ class BaseReporter {
     for (const level of Object.keys(colors)) {
       this[level] = (title, message) => {
         if (this.enabled) {
-          if (!message) {
+          if (message === undefined) {
             message = title
-            title = titles[level]
+            this.log(message)
+            return
           }
-          const titleFormatted = formatTitle(level, title)
-          let messageFormatted = formatText(level, message)
+
+          title = formatTitle(level, title)
+          message = formatText(level, message)
           if (process.env.NODE_ENV !== 'test') {
-            messageFormatted = this.appendTimestamp(titleFormatted, messageFormatted)
+            message = this.appendTimestamp(title, message)
           }
-          this.log(titleFormatted, messageFormatted)
+          this.log(title, message)
           this.log()
         }
       }

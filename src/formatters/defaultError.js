@@ -1,19 +1,18 @@
 'use strict'
 
 const concat = require('../utils').concat
-const { formatTitle } = require('../utils/log')
 
 function displayError (severity, error) {
-  const baseError = formatTitle(severity, severity)
-
-  return concat(
-    `${baseError} ${removeLoaders(error.file)}`,
-    '',
+  const errors = concat(
     error.message,
     (error.origin ? error.origin : undefined),
     '',
     error.infos
   )
+
+  errors.unshift([severity, removeLoaders(error.file)])
+
+  return errors
 }
 
 function removeLoaders (file) {

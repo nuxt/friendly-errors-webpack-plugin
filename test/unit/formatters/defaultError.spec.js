@@ -7,8 +7,7 @@ const error = { message: 'Error message', file: './src/index.js' }
 
 it('Formats errors with no type', () => {
   expect(noColor(defaultError([error], 'Warning'))).toEqual([
-    ' Warning  in ./src/index.js',
-    '',
+    [ 'Warning', 'in ./src/index.js' ],
     'Error message',
     ''
   ])

@@ -31,8 +31,8 @@ function capitalizeFirstLetter (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-function formatTitle (severity, message) {
-  return chalk[bgColor(severity)].black('', message, '')
+function formatTitle (severity, title) {
+  return chalk[bgColor(severity)].black('', title, '')
 }
 
 function formatText (severity, message) {

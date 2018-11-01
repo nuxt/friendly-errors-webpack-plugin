@@ -121,7 +121,9 @@ class FriendlyErrorsWebpackPlugin {
     }
 
     formatErrors(topErrors, this.formatters, severity)
-      .forEach(chunk => this.reporter.log(chunk))
+      .forEach(chunk => {
+        this.reporter[severity].apply(this.reporter, [].concat(chunk))
+      })
   }
 }
 
