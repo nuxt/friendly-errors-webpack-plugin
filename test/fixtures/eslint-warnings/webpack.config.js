@@ -17,7 +17,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: __dirname
+        include: __dirname,
+        options: {
+          ignore: false
+        }
       },
       {
         test: /\.jsx?$/,

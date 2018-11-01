@@ -1,16 +1,16 @@
-const stripAnsi = require('strip-ansi');
+const stripAnsi = require('strip-ansi')
 
 module.exports = {
   captureLogs: async (output, callback) => {
-    output.log = jest.fn();
-    output.clearConsole = jest.fn();
-    const logs = [];
+    output.log = jest.fn()
+    output.clearConsole = jest.fn()
+    const logs = []
 
-    await callback();
+    await callback()
 
-    for(const args of output.log.mock.calls) {
-        logs.push(stripAnsi(args.join(' ')).trim());
+    for (const args of output.log.mock.calls) {
+      logs.push(stripAnsi(args.join(' ')).trim())
     }
-    return logs;
+    return logs
   }
 }

@@ -1,53 +1,52 @@
-'use strict';
+'use strict'
 
-const colors = require('./utils/colors');
-const chalk = require('chalk');
-const stringWidth = require('string-width');
-const readline = require('readline');
+const colors = require('./utils/colors')
+const chalk = require('chalk')
+const stringWidth = require('string-width')
+const readline = require('readline')
 
 class Output {
-
   constructor () {
-    this.enabled = true;
+    this.enabled = true
   }
 
   enable () {
-    this.enabled = true;
+    this.enabled = true
   }
 
   log () {
     if (this.enabled) {
-      console.log.apply(console, arguments);
+      console.log.apply(console, arguments)
     }
   }
 
   info (message) {
     if (this.enabled) {
-      const titleFormatted = colors.formatTitle('info', 'I');
-      this.log(titleFormatted, message);
+      const titleFormatted = colors.formatTitle('info', 'I')
+      this.log(titleFormatted, message)
     }
   }
 
   note (message) {
     if (this.enabled) {
-      const titleFormatted = colors.formatTitle('note', 'N');
-      this.log(titleFormatted, message);
+      const titleFormatted = colors.formatTitle('note', 'N')
+      this.log(titleFormatted, message)
     }
   }
 
   title (severity, title, subtitle) {
     if (this.enabled) {
-      const date = new Date();
-      const dateString = chalk.grey(date.toLocaleTimeString());
-      const titleFormatted = colors.formatTitle(severity, title);
-      const subTitleFormatted = colors.formatText(severity, subtitle);
+      const date = new Date()
+      const dateString = chalk.grey(date.toLocaleTimeString())
+      const titleFormatted = colors.formatTitle(severity, title)
+      const subTitleFormatted = colors.formatText(severity, subtitle)
       const message = `${titleFormatted} ${subTitleFormatted}`
 
       // In test environment we don't include timestamp
-      if(process.env.NODE_ENV === 'test') {
-        this.log(message);
-        this.log();
-        return;
+      if (process.env.NODE_ENV === 'test') {
+        this.log(message)
+        this.log()
+        return
       }
 
       // Make timestamp appear at the end of the line
@@ -56,8 +55,8 @@ class Output {
         logSpace = 10
       }
 
-      this.log(`${message}${' '.repeat(logSpace)}${dateString}`);
-      this.log();
+      this.log(`${message}${' '.repeat(logSpace)}${dateString}`)
+      this.log()
     }
   }
 
@@ -72,4 +71,4 @@ class Output {
   }
 }
 
-module.exports = Output;
+module.exports = Output

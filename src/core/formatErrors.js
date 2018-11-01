@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Applies formatters to all AnnotatedErrors.
@@ -8,11 +8,11 @@
  * of log statements to print.
  *
  */
-function formatErrors(errors, formatters, errorType) {
-  const format = (formatter) => formatter(errors, errorType) || [];
-  const flatten = (accum, curr) => accum.concat(curr);
+function formatErrors (errors, formatters, errorType) {
+  const format = (formatter) => formatter(errors, errorType) || []
+  const flatten = (accum, curr) => accum.concat(curr)
 
   return formatters.map(format).reduce(flatten, [])
 }
 
-module.exports = formatErrors;
+module.exports = formatErrors

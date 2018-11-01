@@ -1,22 +1,22 @@
-'use strict';
+'use strict'
 
-const concat = require('../utils').concat;
-const chalk = require('chalk');
+const concat = require('../utils').concat
+const chalk = require('chalk')
 
 const infos = [
   'You may use special comments to disable some warnings.',
   'Use ' + chalk.yellow('// eslint-disable-next-line') + ' to ignore the next line.',
   'Use ' + chalk.yellow('/* eslint-disable */') + ' to ignore all warnings in a file.'
-];
+]
 
-function displayError(error) {
+function displayError (error) {
   return [error.message, '']
 }
 
-function format(errors, type) {
-  const lintErrors = errors.filter(e => e.type === 'lint-error');
+function format (errors, type) {
+  const lintErrors = errors.filter(e => e.type === 'lint-error')
   if (lintErrors.length > 0) {
-    const flatten = (accum, curr) => accum.concat(curr);
+    const flatten = (accum, curr) => accum.concat(curr)
     return concat(
       lintErrors
         .map(error => displayError(error))
@@ -25,7 +25,7 @@ function format(errors, type) {
     )
   }
 
-  return [];
+  return []
 }
 
-module.exports = format;
+module.exports = format

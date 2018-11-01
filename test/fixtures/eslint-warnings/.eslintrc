@@ -13,7 +13,6 @@
     "sourceType": "module"
   },
   "rules": {
-    // http://eslint.org/docs/rules/
     "no-unused-expressions": "warn",
     "no-unused-labels": "warn",
     "no-unused-vars": ["warn", { "vars": "local", "args": "none" }]
