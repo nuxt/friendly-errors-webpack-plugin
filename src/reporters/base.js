@@ -22,25 +22,25 @@ class BaseReporter {
   }
 
   initLevels () {
-    Object.keys(colors).forEach(level => {
+    for (const level of Object.keys(colors)) {
       this[level] = (title, message) => {
-        if (this.enabled) {
-          if (message === undefined) {
-            message = title
-            this.log(message)
-            return
-          }
+        if (!this.enabled) return
 
-          title = formatTitle(level, title)
-          message = formatText(level, message)
-          if (process.env.NODE_ENV !== 'test') {
-            message = this.appendTimestamp(title, message)
-          }
-          this.log(title, message)
-          this.log()
+        if (message === undefined) {
+          message = title
+          this.log(message)
+          return
         }
+
+        title = formatTitle(level, title)
+        message = formatText(level, message)
+        if (process.env.NODE_ENV !== 'test') {
+          message = this.appendTimestamp(title, message)
+        }
+        this.log(title, message)
+        this.log()
       }
-    })
+    }
   }
 
   appendTimestamp (title, message) {

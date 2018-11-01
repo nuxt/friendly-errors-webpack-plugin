@@ -21,15 +21,17 @@ class BaseReporter {
   }
 
   initLevels () {
-    Object.keys(colors).forEach(level => {
+    for (const level of Object.keys(colors)) {
       this[level] = (title, message) => {
+        if (!this.enabled) return
+
         if (message === undefined) {
           consola.log(title)
           return
         }
         (consola[level] || consola.log)(message)
       }
-    })
+    }
   }
 
   clearConsole () {
