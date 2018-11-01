@@ -7,7 +7,9 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    new FriendlyErrorsWebpackPlugin()
+    new FriendlyErrorsWebpackPlugin({
+      reporter: 'consola'
+    })
   ],
   module: {
     rules: [
