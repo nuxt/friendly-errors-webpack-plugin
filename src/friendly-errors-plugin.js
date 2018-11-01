@@ -30,7 +30,7 @@ const logLevels = {
 class FriendlyErrorsWebpackPlugin {
   constructor (options) {
     options = options || {}
-    this.reporter = new BaseReporter()
+    this.reporter = new (options.reporter || BaseReporter)()
     this.compilationSuccessInfo = options.compilationSuccessInfo || {}
     this.onErrors = options.onErrors
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole)
