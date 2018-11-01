@@ -1,9 +1,8 @@
 'use strict'
 
-const { colors, formatTitle, formatText } = require('../utils/log')
+const { colors, formatTitle, formatText, clearConsole } = require('../utils/log')
 const chalk = require('chalk')
 const stringWidth = require('string-width')
-const readline = require('readline')
 
 class BaseReporter {
   constructor () {
@@ -55,12 +54,8 @@ class BaseReporter {
   }
 
   clearConsole () {
-    if (this.enabled && process.stdout.isTTY) {
-      // Fill screen with blank lines. Then move to 0 (beginning of visible part) and clear it
-      const blank = '\n'.repeat(process.stdout.rows)
-      console.log(blank)
-      readline.cursorTo(process.stdout, 0, 0)
-      readline.clearScreenDown(process.stdout)
+    if (this.enabled) {
+      clearConsole()
     }
   }
 }
