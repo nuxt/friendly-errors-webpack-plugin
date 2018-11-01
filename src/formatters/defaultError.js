@@ -10,7 +10,7 @@ function displayError (severity, error) {
     error.infos
   )
 
-  errors.unshift([severity, removeLoaders(error.file)])
+  errors.unshift([severity, removeLoaders(error.file) || error.name])
 
   return errors
 }

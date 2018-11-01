@@ -63,7 +63,7 @@ it('integration : should display eslint warnings', async () => {
   const logs = await executeAndGetLogs('./fixtures/eslint-warnings/webpack.config.js')
 
   expect(logs.join('\n')).toEqual(
-    `WARNING  Compiled with 2 warnings
+    `WARN  Compiled with 2 warnings
 
 Module Warning (from ./node_modules/eslint-loader/index.js):
 

@@ -22,7 +22,7 @@ class BaseReporter {
   }
 
   initLevels () {
-    for (const level of Object.keys(colors)) {
+    Object.keys(colors).forEach(level => {
       this[level] = (title, message) => {
         if (this.enabled) {
           if (message === undefined) {
@@ -40,7 +40,7 @@ class BaseReporter {
           this.log()
         }
       }
-    }
+    })
   }
 
   appendTimestamp (title, message) {

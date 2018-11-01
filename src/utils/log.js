@@ -6,16 +6,16 @@ const colors = {
   success: 'green',
   info: 'blue',
   note: 'white',
-  warning: 'yellow',
+  warn: 'yellow',
   error: 'red'
 }
 
 const titles = {
-  success: 'SUCCESS',
-  info: 'INFO',
-  note: 'NOTE',
-  warning: 'WARN',
-  error: 'ERROR'
+  success: 'success',
+  info: 'info',
+  note: 'note',
+  warn: 'warning',
+  error: 'error'
 }
 
 function bgColor (level) {

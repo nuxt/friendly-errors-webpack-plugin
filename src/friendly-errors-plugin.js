@@ -2,7 +2,9 @@
 
 const transformErrors = require('./core/transformErrors')
 const formatErrors = require('./core/formatErrors')
+const reporters = require('./reporters')
 const utils = require('./utils')
+const { titles } = require('./utils/log')
 
 const concat = utils.concat
 const uniqueBy = utils.uniqueBy
@@ -36,9 +38,9 @@ class FriendlyErrorsWebpackPlugin {
     this.formatters = concat(defaultFormatters, options.additionalFormatters)
     this.transformers = concat(defaultTransformers, options.additionalTransformers)
 
-    let reporter = options.reporter || './reporters/base'
+    let reporter = options.reporter || 'base'
     if (typeof reporter === 'string') {
-      reporter = new (require(reporter))()
+      reporter = new (require(reporters[reporter] || reporter))()
     }
     this.reporter = reporter
   }
@@ -60,7 +62,7 @@ class FriendlyErrorsWebpackPlugin {
 
       if (hasWarnings && this.logLevel < 2) {
         cleared = this.clearConsole()
-        this.displayErrors(extractErrorsFromStats(stats, 'warnings'), 'warning')
+        this.displayErrors(extractErrorsFromStats(stats, 'warnings'), 'warn')
       }
 
       if (hasErrors && this.logLevel < 3) {
@@ -112,8 +114,8 @@ class FriendlyErrorsWebpackPlugin {
     const nbErrors = topErrors.length
 
     const subtitle = severity === 'error'
-      ? `Failed to compile with ${nbErrors} ${severity}s`
-      : `Compiled with ${nbErrors} ${severity}s`
+      ? `Failed to compile with ${nbErrors} ${titles[severity]}s`
+      : `Compiled with ${nbErrors} ${titles[severity]}s`
     this.reporter[severity](severity.toUpperCase(), subtitle)
 
     if (this.onErrors) {
