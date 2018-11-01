@@ -1,11 +1,11 @@
 'use strict'
 
-const colors = require('./utils/colors')
+const colors = require('../utils/colors')
 const chalk = require('chalk')
 const stringWidth = require('string-width')
 const readline = require('readline')
 
-class Output {
+class BaseReporter {
   constructor () {
     this.enabled = true
   }
@@ -71,4 +71,4 @@ class Output {
   }
 }
 
-module.exports = Output
+module.exports = BaseReporter

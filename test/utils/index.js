@@ -1,7 +1,7 @@
 const stripAnsi = require('strip-ansi')
 
 module.exports = {
-  captureLogs: async (output, callback) => {
+  captureReports: async (output, callback) => {
     output.log = jest.fn()
     output.clearConsole = jest.fn()
     const logs = []

@@ -4,7 +4,7 @@ const webpack = require('webpack')
 const FriendlyErrorsWebpackPlugin = require('../src/friendly-errors-plugin')
 const MemoryFileSystem = require('memory-fs')
 const path = require('path')
-const { captureLogs } = require('./utils')
+const { captureReports } = require('./utils')
 
 const webpackPromise = function (config, globalPlugins) {
   const compiler = webpack(config)
@@ -23,10 +23,10 @@ const webpackPromise = function (config, globalPlugins) {
   })
 }
 
-async function executeAndGetLogs (fixture, globalPlugins, output) {
+async function executeAndGetLogs (fixture, globalPlugins, reporter) {
   const config = require(fixture)
-  output = (globalPlugins || config.plugins)[0].output
-  return captureLogs(output, () => webpackPromise(config, globalPlugins))
+  reporter = (globalPlugins || config.plugins)[0].reporter
+  return captureReports(reporter, () => webpackPromise(config, globalPlugins))
 }
 
 it('integration : success', async () => {
