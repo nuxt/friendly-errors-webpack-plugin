@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const extractError = require('./extractWebpackError');
+const extractError = require('./extractWebpackError')
 
 /**
  * Applies all transformers to all errors and returns "annotated"
@@ -25,10 +25,10 @@ const extractError = require('./extractWebpackError');
  * If they don't have a 'type' field, the will be handled by the default formatter.
  */
 function processErrors (errors, transformers) {
-  const transform = (error, transformer) => transformer(error);
-  const applyTransformations = (error) => transformers.reduce(transform, error);
+  const transform = (error, transformer) => transformer(error)
+  const applyTransformations = (error) => transformers.reduce(transform, error)
 
-  return errors.map(extractError).map(applyTransformations);
+  return errors.map(extractError).map(applyTransformations)
 }
 
-module.exports = processErrors;
+module.exports = processErrors

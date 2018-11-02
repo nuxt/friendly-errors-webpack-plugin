@@ -16,3 +16,4 @@ test_script:
   - yarn test
 
 build: off
+skip_branch_with_pr: true

@@ -7,10 +7,12 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    new FriendlyErrorsWebpackPlugin()
+    new FriendlyErrorsWebpackPlugin({
+      reporter: 'consola'
+    })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         loader: 'eslint-loader',
