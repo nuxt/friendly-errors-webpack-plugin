@@ -3,7 +3,7 @@
 const { colors, clearConsole } = require('../utils/log')
 const consola = require('consola')
 
-class BaseReporter {
+class ConsolaReporter {
   constructor () {
     this.enabled = true
     this.consola = consola.withTag('friendly-errors')
@@ -24,7 +24,6 @@ class BaseReporter {
     for (const level of Object.keys(colors)) {
       this[level] = (title, message) => {
         if (!this.enabled) return
-        if (title === 'WAIT') return
 
         if (message === undefined) {
           this.consola.log(title)
@@ -42,4 +41,4 @@ class BaseReporter {
   }
 }
 
-module.exports = BaseReporter
+module.exports = ConsolaReporter
