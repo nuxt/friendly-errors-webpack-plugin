@@ -24,6 +24,7 @@ class ConsolaReporter {
     for (const level of Object.keys(colors)) {
       this[level] = (title, message) => {
         if (!this.enabled) return
+        if (title === 'WAIT') return
 
         if (message === undefined) {
           this.consola.log(title)
