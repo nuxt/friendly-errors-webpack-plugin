@@ -42,7 +42,7 @@ You need to turn off all error logging by setting your webpack config quiet opti
 ```javascript
 app.use(require('webpack-dev-middleware')(compiler, {
   // ...
-  logLevel: 'silent',
+  logLevel: 'SILENT',
   // ...
 }));
 ```
@@ -114,6 +114,11 @@ new FriendlyErrorsPlugin({
   // SILENT:  no log
   logLevel: true,
 
+  // base: default
+  // consola: consola adapter
+  // can also be npm package name or reporter object
+  reporter: 'consola'
+
   // add formatters and transformers (see below)
   additionalFormatters: [],
   additionalTransformers: []
@@ -162,3 +167,12 @@ You can add transformers and formatters. Please see [transformErrors](https://gi
 and [formatErrors](https://github.com/nuxt/friendly-errors-webpack-plugin/blob/master/src/core/formatErrors.js)
 in the source code and take a look a the [default transformers](https://github.com/nuxt/friendly-errors-webpack-plugin/tree/master/src/transformers)
 and the [default formatters](https://github.com/nuxt/friendly-errors-webpack-plugin/tree/master/src/formatters).
+
+### Customize Reporters
+
+Reporter is a class for generating output of errors messages, structure is:
+
+1. Include following levels log methods: `success`, `info`, `note`, `warn`, `error`.
+1. Include method `clearConsole` for clearing the terminal console.
+
+You can take a look at source code as example [base reporter](https://github.com/nuxt/friendly-errors-webpack-plugin/blob/master/src/reporters/base.js)
