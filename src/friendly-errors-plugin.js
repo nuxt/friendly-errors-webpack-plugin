@@ -34,7 +34,7 @@ class FriendlyErrorsWebpackPlugin {
     this.compilationSuccessInfo = options.compilationSuccessInfo || {}
     this.onErrors = options.onErrors
     this.shouldClearConsole = options.clearConsole == null ? true : Boolean(options.clearConsole)
-    this.logLevel = logLevels[options.logLevel] || '0'
+    this.logLevel = logLevels[options.logLevel.toUpperCase()] || '0'
     this.formatters = concat(defaultFormatters, options.additionalFormatters)
     this.transformers = concat(defaultTransformers, options.additionalTransformers)
 
