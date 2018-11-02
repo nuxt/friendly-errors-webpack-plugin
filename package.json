@@ -1,5 +1,5 @@
 {
-  "name": "@nuxtjs/friendly-errors-webpack-plugin",
+  "name": "@nuxt/friendly-errors-webpack-plugin",
   "publishConfig": {
     "access": "public"
   },
