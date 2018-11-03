@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v2.1.0...v2.2.0) (2018-11-03)
+
+
+### Bug Fixes
+
+* logLevel can be lower case value ([8db42c9](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/8db42c9))
+* logLevel can be lower case value ([27d166b](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/27d166b))
+* message in windows ([ed4c84b](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/ed4c84b))
+* remove duplicate SyntaxError ([8953760](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/8953760))
+
+
+### Features
+
+* add consola reporter ([60e447c](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/60e447c))
+* add reporter options ([7547af3](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/7547af3))
+* add reporters ([ccddab5](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/ccddab5))
+* refactor reporter to standard logger ([00c979d](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/00c979d))
+* skip branch build in pr ([25ca868](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/25ca868))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v2.0.2...v2.1.0) (2018-10-26)
 
