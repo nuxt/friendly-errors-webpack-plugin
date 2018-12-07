@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.4.0"></a>
+# [2.4.0](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v2.3.2...v2.4.0) (2018-12-07)
+
+
+### Features
+
+* display children errors and warnings ([812ffe4](https://github.com/nuxt/friendly-errors-webpack-plugin/commit/812ffe4))
+
+
+
 <a name="2.3.2"></a>
 ## [2.3.2](https://github.com/nuxt/friendly-errors-webpack-plugin/compare/v2.3.1...v2.3.2) (2018-11-23)
 
