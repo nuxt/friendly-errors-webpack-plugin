@@ -130,14 +130,22 @@ class FriendlyErrorsWebpackPlugin {
 }
 
 function extractErrorsFromStats (stats, type) {
+  let errors = []
   if (isMultiStats(stats)) {
-    const errors = stats.stats
+    errors = stats.stats
       .reduce((errors, stats) => errors.concat(extractErrorsFromStats(stats, type)), [])
-    // Dedupe to avoid showing the same error many times when multiple
-    // compilers depend on the same module.
-    return uniqueBy(errors, error => error.message)
+  } else {
+    if (Array.isArray(stats.compilation.children)) {
+      for (const child of stats.compilation.children) {
+        const childStats = child.getStats()
+        errors.push.apply(errors, extractErrorsFromStats(childStats, type))
+      }
+    }
+    errors.push.apply(errors, stats.compilation[type])
   }
-  return stats.compilation[type]
+  // Dedupe to avoid showing the same error many times when multiple
+  // compilers depend on the same module.
+  return uniqueBy(errors, error => error.message)
 }
 
 function getCompileTime (stats) {
