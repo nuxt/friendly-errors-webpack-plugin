@@ -37,6 +37,7 @@ class FriendlyErrorsWebpackPlugin {
     this.logLevel = logLevels[(options.logLevel || 'info').toUpperCase()]
     this.formatters = concat(defaultFormatters, options.additionalFormatters)
     this.transformers = concat(defaultTransformers, options.additionalTransformers)
+    this.previousEndTimes = {}
 
     let reporter = options.reporter || 'base'
     if (typeof reporter === 'string') {
@@ -95,7 +96,7 @@ class FriendlyErrorsWebpackPlugin {
   }
 
   displaySuccess (stats) {
-    const time = getCompileTime(stats)
+    const time = isMultiStats(stats) ? this.getMultiStatsCompileTime(stats) : this.getStatsCompileTime(stats)
     this.reporter.success('DONE', 'Compiled successfully in ' + time + 'ms')
 
     if (this.compilationSuccessInfo.messages) {
@@ -127,6 +128,27 @@ class FriendlyErrorsWebpackPlugin {
         this.reporter[severity].apply(this.reporter, [].concat(chunk))
       })
   }
+
+  getStatsCompileTime (stats, statsIndex) {
+    // When we have multi compilations but only one of them is rebuilt, we need to skip the
+    // unchanged compilers to report the true rebuild time.
+    if (statsIndex !== undefined) {
+      if (this.previousEndTimes[statsIndex] === stats.endTime) {
+        return 0
+      }
+
+      this.previousEndTimes[statsIndex] = stats.endTime
+    }
+
+    return stats.endTime - stats.startTime
+  }
+
+  getMultiStatsCompileTime (stats) {
+    // Webpack multi compilations run in parallel so using the longest duration.
+    // https://webpack.github.io/docs/configuration.html#multiple-configurations
+    return stats.stats
+      .reduce((time, stats, index) => Math.max(time, this.getStatsCompileTime(stats, index)), 0)
+  }
 }
 
 function extractErrorsFromStats (stats, type) {
@@ -146,16 +168,6 @@ function extractErrorsFromStats (stats, type) {
   // Dedupe to avoid showing the same error many times when multiple
   // compilers depend on the same module.
   return uniqueBy(errors, error => error.message)
-}
-
-function getCompileTime (stats) {
-  if (isMultiStats(stats)) {
-    // Webpack multi compilations run in parallel so using the longest duration.
-    // https://webpack.github.io/docs/configuration.html#multiple-configurations
-    return stats.stats
-      .reduce((time, stats) => Math.max(time, getCompileTime(stats)), 0)
-  }
-  return stats.endTime - stats.startTime
 }
 
 function isMultiStats (stats) {
