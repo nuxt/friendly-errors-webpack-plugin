@@ -1,7 +1,6 @@
 'use strict'
 
 const chalk = require('chalk')
-const readline = require('readline')
 
 const colors = {
   success: 'green',
@@ -41,13 +40,9 @@ function formatText (severity, message) {
 }
 
 function clearConsole () {
-  if (process.stdout.isTTY) {
-    // Fill screen with blank lines. Then move to 0 (beginning of visible part) and clear it
-    const blank = '\n'.repeat(process.stdout.rows)
-    console.log(blank)
-    readline.cursorTo(process.stdout, 0, 0)
-    readline.clearScreenDown(process.stdout)
-  }
+  process.stdout.write(
+    process.platform === 'win32' ? '\x1B[2J\x1B[0f' : '\x1B[2J\x1B[3J\x1B[H'
+  )
 }
 
 module.exports = {
