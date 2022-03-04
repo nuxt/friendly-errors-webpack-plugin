@@ -131,7 +131,7 @@ The plugin has no native support for desktop notifications but it is easy
 to add them thanks to [node-notifier](https://www.npmjs.com/package/node-notifier) for instance.
 
 ```js
-var NotifierPlugin = require('friendly-errors-webpack-plugin');
+var NotifierPlugin = require('@nuxt/friendly-errors-webpack-plugin');
 var notifier = require('node-notifier');
 var ICON = path.join(__dirname, 'icon.png');
 
