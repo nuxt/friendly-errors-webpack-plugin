@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const consola = require("consola");
+const { consola } = require("consola");
 const config = require("./webpack.config");
 
 consola.wrapConsole();
