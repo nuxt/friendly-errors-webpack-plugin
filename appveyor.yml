@@ -1,6 +1,6 @@
 environment:
   matrix:
-    - nodejs_version: "8"
+    - nodejs_version: "14"
 
 cache:
   - "%LOCALAPPDATA%\\Yarn"
@@ -15,5 +15,5 @@ test_script:
   - yarn --version
   - yarn test
 
-build: off
+build: false
 skip_branch_with_pr: true
