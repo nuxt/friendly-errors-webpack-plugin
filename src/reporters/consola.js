@@ -1,7 +1,7 @@
 'use strict'
 
 const { colors, clearConsole } = require('../utils/log')
-const { consola } = require('consola')
+const consola = require('consola')
 
 class ConsolaReporter {
   constructor () {
