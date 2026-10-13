@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repository is archived. This plugin now lives in [Nuxt](https://github.com/nuxt/nuxt) itself.
+
 # Friendly-errors-webpack-plugin
 
 [![npm](https://img.shields.io/npm/v/@nuxtjs/friendly-errors-webpack-plugin.svg)](https://www.npmjs.com/package/@nuxtjs/friendly-errors-webpack-plugin)
